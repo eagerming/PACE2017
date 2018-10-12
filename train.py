@@ -6,7 +6,7 @@ from keras import initializers
 from keras.regularizers import l1, l2, l1_l2
 from keras.models import Sequential, Model
 from keras.layers.core import Dense, Lambda, Activation
-from keras.layers import Embedding, Input, Dense, merge, Reshape, Flatten, Dropout
+from keras.layers import Embedding, Input, Dense, Reshape, merge, Concatenate, Flatten, Dropout, concatenate
 from keras.optimizers import Adagrad, Adam, SGD, RMSprop
 import pickle
 from time import time
@@ -30,7 +30,7 @@ def get_Model(num_users, num_items, latent_dim, user_con_len, item_con_len, laye
     user_latent = Flatten()(user_embedding(user_input))
     item_latent = Flatten()(item_embedding(item_input))
 
-    vector = merge([user_latent, item_latent], mode='concat')
+    vector = concatenate([user_latent, item_latent])
 
     for i in range(len(layers)):
         hidden = Dense(layers[i], activation='relu', init='lecun_uniform', name='ui_hidden_' + str(i))
