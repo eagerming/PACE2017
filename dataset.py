@@ -319,7 +319,8 @@ class Dataset(object):
 	def generateContextLabels(self):
 		print('Generating '+str(len(self.train_data['label']))+' context labels')
 		for i in range(len(self.train_data['label'])):
-			print(str(i))
+			if i % 10000 == 1:
+				print(str(i))
 			tmp = [0] * len(self.user_enum)
 			user = self.train_data['user'][i]
 			if user in self.user_label:

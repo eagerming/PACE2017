@@ -14,6 +14,7 @@ data = dataset.Dataset('_small')
 try:
     with open('data/train_context_small.pkl', 'rb') as f:
         contexts = pickle.load(f)
+        print('load successful!')
 except Exception:
     data.generateContextLabels()
     contexts = data.context_data
@@ -38,18 +39,18 @@ train_data['s_context'] = s_context
 # with open('data/Rating_gowalla.txt', 'w') as f:
 #     for userID, itemID, rating in zip(user_input, item_input, ui_label):
 #         f.write("%d %d %f\n" % (userID + 1, itemID + 1, rating))
-#
-# with open('data/user_network.txt','w') as f:
-#     for userI, user_context in enumerate(u_context):
-#         friends = [friend for friend in enumerate(user_context) if friend[1] > 0]
-#         for friend in friends:
-#             f.write("%d, %d, %f\n" % (userI + 1, friend[0] + 1, friend[1]))
-#
-#
-# with open('data/item_network.txt','w') as f:
-#     for userI, user_context in enumerate(s_context):
-#         friends = [friend for friend in enumerate(user_context) if friend[1] > 0]
-#         for friend in friends:
-#             f.write("%d, %d, %f\n" % (userI + 1, friend[0] + 1, friend[1]))
+
+with open('data/user_network.txt','w') as f:
+    for userI, user_context in enumerate(u_context):
+        friends = [friend for friend in enumerate(user_context) if friend[1] > 0]
+        for friend in friends:
+            f.write("%d %d %f\n" % (userI + 1, friend[0] + 1, friend[1]))
+
+
+with open('data/item_network.txt','w') as f:
+    for userI, user_context in enumerate(s_context):
+        friends = [friend for friend in enumerate(user_context) if friend[1] > 0]
+        for friend in friends:
+            f.write("%d %d %f\n" % (userI + 1, friend[0] + 1, friend[1]))
 
 
